@@ -1,0 +1,45 @@
+@use "../../styles/formStyles.scss" as form;
+
+.sign-in-form-section {
+    @include form.formStyles;
+    background-color: #f6f9fe;
+
+    h1 {
+        color: #00378a;
+    }
+
+    p {
+        color: #49648d;
+    }
+
+    label {
+        color: #3e5679;
+    }
+
+    input {
+        border-bottom: 1px solid #00378a;
+
+        &:focus,
+        &:hover,
+        &:active {
+            background-color: #e5f0ff;
+            box-shadow: 0 2px 0 0 #00378a;
+        }
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #e5f0ff inset;
+        box-shadow: 0 0 0px 1000px #e5f0ff inset;
+    }
+
+    .button-separator {
+        .text {
+            color: #00378a;
+        }
+
+        .line {
+            background-color: #00378a;
+            opacity: 0.125;
+        }
+    }
+}

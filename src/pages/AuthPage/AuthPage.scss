@@ -1,0 +1,12 @@
+.auth-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+
+    .sign-in-form-section,
+    .sign-up-form-section {
+        width: 500px;
+        max-width: 100%;
+    }
+}

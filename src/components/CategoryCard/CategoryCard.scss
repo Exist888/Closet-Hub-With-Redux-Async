@@ -1,0 +1,105 @@
+.category-card {
+    padding: 2rem;
+    height: 17.5rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #303030;
+
+    h2 {
+        text-transform: capitalize;
+    }
+
+    p {
+        color: #446496;
+        font-weight: 600;
+    }
+
+    .background-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 0.375rem;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        position: absolute;
+    }
+
+    .category-title-and-cta-box {
+        padding: 1rem 1.5rem;
+        background-color: #f1f1f1;
+        border-radius: 0.25rem;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (min-width: 900px) {
+            justify-content: start;
+            align-items: start;
+        }
+
+        .category-cta-container {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+
+            .fa-solid {
+                color: #446496;
+                opacity: 0.375;
+                font-size: 0.75rem;
+            }
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        & .background-image {
+            transform: scale(1.1);
+            transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+        }
+
+        & .category-title-and-cta-box {
+            background-color: #fff;
+            cursor: pointer;
+
+            & p {
+                color: #0066ff;
+            }
+
+            & .category-cta-container {
+                gap: 0.375rem;
+                transition: gap 0.2s ease;
+
+                .fa-solid {
+                    color: #0066ff;
+                    opacity: 1;
+                    margin-right: -0.125rem;
+                    transition: margin-right 0.2s ease;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 600px) {
+        height: 23.75rem;
+    }
+
+    @media (min-width: 900px) {
+        display: unset;
+    }
+}

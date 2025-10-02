@@ -1,0 +1,23 @@
+.label-and-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+input {
+    font-family: inherit;
+    font-size: 0.875rem;
+    border: none;
+    background-color: transparent;
+    padding: 0.25rem 0.5rem;
+    color: #1b1b1b;
+    letter-spacing: 0.5px;
+    border-radius: 0.125rem 0.125rem 0 0;
+
+    &:focus,
+    &:hover,
+    &:active {
+        border-bottom: 2px solid #1d1d1d;
+        outline: none;
+    }
+}

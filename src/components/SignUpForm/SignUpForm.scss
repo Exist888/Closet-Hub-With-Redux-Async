@@ -1,0 +1,50 @@
+@use "../../styles/formStyles.scss" as form;
+
+.sign-up-form-section {
+    @include form.formStyles;
+    background-color: #f7f6ef;
+
+    h1 {
+        color: #4c4629;
+    }
+
+    p {
+        color: #6d643c;
+
+        i {
+            padding-left: 0.25rem;
+            margin-right: 0.625rem;
+        }
+    }
+
+    label {
+        color: #585232;
+    }
+
+    input {
+        border-bottom: 1px solid #4c4629;
+
+        &:focus,
+        &:hover,
+        &:active {
+            background-color: #ece7d9;
+            box-shadow: 0 2px 0 0 #4c4629;
+        }
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #ece7d9 inset;
+        box-shadow: 0 0 0px 1000px #ece7d9 inset;
+    }
+
+    .button-separator {
+        .text {
+            color: #585232;
+        }
+
+        .line {
+            background-color: #585232;
+            opacity: 0.125;
+        }
+    }
+}

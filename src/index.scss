@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #dadada;
+    color: #303030;
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+h1, h2, p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+
+    &:active {
+        transform: scale(0.97);
+        transition: transform 0.2s ease-in-out;
+    }
+}
+
+button:hover,
+a:hover,
+.link:hover {
+    cursor: pointer;
+}

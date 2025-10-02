@@ -1,0 +1,31 @@
+.categories-section {
+    .elements-container {
+        display: grid;
+        gap: 0.625rem;
+        grid-template-columns: 1fr;
+
+        @media (min-width: 600px) {
+            grid-template-columns: 1fr 1fr;
+
+            // 5th direct child spans 2 columns, filling the entire row in tablet view
+            > :nth-child(5) {
+                grid-column: span 2;
+            }
+        }
+
+        @media (min-width: 900px) {
+            grid-template-columns: repeat(6, 1fr);
+
+            // All direct children of .elements-container span 2 columns (3 cards per row)
+            > * {
+                grid-column: span 2;
+            }
+
+            // 4th and 5th direct children span 3 columns each (2 cards in bottom row)
+            > :nth-child(4),
+            > :nth-child(5) {
+                grid-column: span 3;
+            }
+        }
+    }
+}
