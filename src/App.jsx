@@ -7,12 +7,9 @@ import { Shop } from "./routes/Shop/Shop.jsx";
 import { Auth } from "./routes/Auth/Auth.jsx";
 import { Checkout } from "./routes/Checkout/Checkout.jsx";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop.jsx";
-import { onAuthStateChangedListener, 
-    createUserDocumentFromAuth,
-    getCategoriesAndDocuments 
-} from "./services/firebase/firebase.js";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userAction.js";
-import { setCategories } from "./store/categories/categoriesAction.js";
+import { fetchCategoriesAsync } from "./store/categories/categoriesAction.js";
 import "./App.scss";
 
 export function App() {
@@ -33,11 +30,8 @@ export function App() {
     }, []);
 
     useEffect(() => {
-        async function getCategories() {
-            const categoryObjectsArray = await getCategoriesAndDocuments();
-            dispatch(setCategories(categoryObjectsArray));
-        }
-        getCategories();
+        // FOR THUNK: Replace previous async fetch with the thunk - which takes care of the fetch
+        dispatch(fetchCategoriesAsync());
     }, []);
 
     return (
