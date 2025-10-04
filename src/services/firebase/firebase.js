@@ -71,9 +71,6 @@ export async function getCategoriesAndDocuments() {
     const collectionRef = collection(db, "categories");
     // Build an unfiltered query to our collectionRef
     const q = query(collectionRef);
-
-    // await Promise.reject(new Error());
-
     // Fetch all documents from the collection
     const querySnapshot = await getDocs(q);
     // Get raw document snapshots from the query (as an array)
