@@ -25,7 +25,8 @@ export function fetchCategoriesAsync() {
             const categoryObjectsArray = await getCategoriesAndDocuments();
             dispatch(fetchCategoriesSuccess(categoryObjectsArray));
         } catch (error) {
-            dispatch(fetchCategoriesFail(error));
+            // Pass in clean error string to avoid leading sensitive info in component
+            dispatch(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
         }
     }
 }

@@ -30,3 +30,19 @@ export const selectCategories = createSelector(
         return updatedCategoriesObj;
     }
 );
+
+// Create the selector for isLoading state
+export const selectCategoriesDataIsLoading = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => {
+        return categoriesSlice.isLoading;
+    }
+);
+
+// Create the selector for handling the error message - already sanitized in the action
+export const selectCategoriesError = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => {
+        return categoriesSlice.error;
+    }
+);

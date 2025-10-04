@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategories } from "../../store/categories/categoriesSelector.js";
+import { selectCategories, 
+    selectCategoriesDataIsLoading,
+    selectCategoriesError 
+} from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
+import { Spinner } from "../../components/Spinner/Spinner.jsx";
+import { Notification } from "../../components/Notification/Notification.jsx";
 import "./CategoryPage.scss";
 
 export function CategoryPage() {
@@ -13,6 +18,9 @@ export function CategoryPage() {
 
     // Get the transformed categories object (keyed by category title) from Redux store via selector
     const categoriesObject = useSelector(selectCategories);
+
+    const isLoading = useSelector(selectCategoriesDataIsLoading);
+    const cleanErrorMsg = useSelector(selectCategoriesError);
 
     // Set products state when category param or categoriesObject changes
     useEffect(() => {
@@ -35,15 +43,21 @@ export function CategoryPage() {
     const categoryText = categoryKeys.includes(category) && `All ${category}`;
 
     return (
-        categoryText && (
-            <section className="shop-section elements-container">
-                <div className="page-title-container category-page-title-container">
-                    <h1>{categoryText}</h1>
-                </div>
-                <div className="category-container">
-                    {categoryProductsJsx }
-                </div>
-            </section>
+        isLoading ? (
+            <Spinner />
+        ) : cleanErrorMsg ? (
+            <Notification notificationClass="errorMsg">{cleanErrorMsg}</Notification>
+        ) : (
+            categoryText && (
+                <section className="shop-section elements-container">
+                    <div className="page-title-container category-page-title-container">
+                        <h1>{categoryText}</h1>
+                    </div>
+                    <div className="category-container">
+                        {categoryProductsJsx }
+                    </div>
+                </section>
+            )
         )
     );
 }

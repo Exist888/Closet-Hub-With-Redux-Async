@@ -1,0 +1,40 @@
+.notification {
+    border-radius: 0.25rem;
+    padding: 1rem 2rem;
+    width: 95%;
+    max-width: fit-content;
+    margin: 0 auto;
+    display: inline-block;
+    left: 0;
+    right: 0;
+    z-index: 3000;
+
+    .notification-text {
+        font-size: 1.375rem;
+        font-weight: 700;
+    }
+}
+
+.item-added-msg {
+    background-color: #d9fff8;
+    color: #008064;
+    box-shadow: 0 10px 20px #00554370;
+    position: fixed;
+    bottom: -4rem;
+    opacity: 0;
+    animation: slide-up 2s ease-in-out 1;
+
+    @keyframes slide-up {
+        0% { bottom: -4rem; opacity: 0; }
+        10% { bottom: 2rem; opacity: 1; }
+        90% { bottom: 2rem; opacity: 1; }
+        100% { bottom: -4rem; opacity: 0; }
+    }
+}
+
+.error-msg {
+    background-color: #ffe4d9;
+    color: #bd3900;
+    position: absolute;
+    top: 6rem;
+}
