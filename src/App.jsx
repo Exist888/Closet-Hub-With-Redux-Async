@@ -9,7 +9,9 @@ import { Checkout } from "./routes/Checkout/Checkout.jsx";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop.jsx";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userAction.js";
-import { fetchCategoriesAsync } from "./store/categories/categoriesAction.js";
+// import { fetchCategoriesAsync } from "./store/categories/categoriesAction.js";
+// FOR SAGA: replacing entire fetchCategoriesAsync with the start action so Saga can handle remaining actions
+import { fetchCategoriesStart } from "./store/categories/categoriesAction.js";
 import "./App.scss";
 
 export function App() {
@@ -30,8 +32,10 @@ export function App() {
     }, []);
 
     useEffect(() => {
-        // FOR THUNK: Replace previous async fetch with the thunk - which takes care of the fetch
-        dispatch(fetchCategoriesAsync());
+        // FOR THUNK (replacing): Replace previous async fetch with the thunk - which takes care of the fetch
+        // dispatch(fetchCategoriesAsync());
+        // FOR SAGA: dispatch the first action so Saga can handle remaining actions using generator functions
+        dispatch(fetchCategoriesStart());
     }, []);
 
     return (

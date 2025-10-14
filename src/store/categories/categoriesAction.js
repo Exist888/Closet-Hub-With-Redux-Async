@@ -16,17 +16,17 @@ export function fetchCategoriesFail(error) {
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error);
 }
 
-// FOR THUNK: Create the thunk - function that returns an async function that dispatches 3 fetch stages
-export function fetchCategoriesAsync() {
-    return async (dispatch) => {
-        dispatch(fetchCategoriesStart());
+// FOR THUNK (replacing): Create the thunk - function that returns an async function that dispatches 3 fetch stages
+// export function fetchCategoriesAsync() {
+//     return async (dispatch) => {
+//         dispatch(fetchCategoriesStart());
 
-        try {
-            const categoryObjectsArray = await getCategoriesAndDocuments();
-            dispatch(fetchCategoriesSuccess(categoryObjectsArray));
-        } catch (error) {
-            // Pass in clean error string to avoid leading sensitive info in component
-            dispatch(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
-        }
-    }
-}
+//         try {
+//             const categoryObjectsArray = await getCategoriesAndDocuments();
+//             dispatch(fetchCategoriesSuccess(categoryObjectsArray));
+//         } catch (error) {
+//             // Pass in clean error string to avoid leading sensitive info in component
+//             dispatch(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
+//         }
+//     }
+// }
