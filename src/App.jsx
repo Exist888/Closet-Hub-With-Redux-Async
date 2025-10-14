@@ -35,6 +35,8 @@ export function App() {
         // FOR THUNK (replacing): Replace previous async fetch with the thunk - which takes care of the fetch
         // dispatch(fetchCategoriesAsync());
         // FOR SAGA: dispatch the first action so Saga can handle remaining actions using generator functions
+        // This only dispatches a plain action (FETCH_CATEGORIES_START)
+        // The middleware (Saga) intercepts this action and handles the async logic
         dispatch(fetchCategoriesStart());
     }, []);
 

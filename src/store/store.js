@@ -45,6 +45,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
 // FOR SAGA: apply the run method to sageMiddleware and pass in rootSaga as a param
+// NOTE: this must be called after createStore() as Sagas are linked to the store lifecycle
 sagaMiddleware.run(rootSaga);
 
 // Pass persistor as prop into PersistGate in index.jsx

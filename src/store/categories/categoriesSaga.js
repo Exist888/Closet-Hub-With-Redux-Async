@@ -13,6 +13,9 @@ export function* fetchCategoriesAsync() {
     //     dispatch(fetchCategoriesStart());
     try {
         // const categoryObjectsArray = await getCategoriesAndDocuments();
+
+        // FOR SAGA: call(fn, arg) is used instead of just calling fn(arg) 
+        // so Saga can better manage execution, errors, testing, and cancellation.
         const categoryObjectsArray = yield call(getCategoriesAndDocuments, "categories");
         // dispatch(fetchCategoriesSuccess(categoryObjectsArray));
         yield put(fetchCategoriesSuccess(categoryObjectsArray));
@@ -27,6 +30,7 @@ export function* fetchCategoriesAsync() {
 export function* onFetchCategories() {
     // yield keyword "returns" the specified line then pauses wihout stopping the entire function
     // takeLatest method cancels previous runs of the action and processes the latest run of the action
+    // This is useful for requests like fetching categories where you only care about most recent result
     yield takeLatest(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START, fetchCategoriesAsync);
 } 
 

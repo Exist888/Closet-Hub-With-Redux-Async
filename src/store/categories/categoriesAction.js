@@ -1,6 +1,6 @@
 import { createAction } from "../../utils/reducer/reducerUtils.js";
 import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
-import { getCategoriesAndDocuments } from "../../services/firebase/firebase.js";
+// import { getCategoriesAndDocuments } from "../../services/firebase/firebase.js";
 
 // FOR THUNK: Create an action for each of the three async-related types
 export function fetchCategoriesStart() {
