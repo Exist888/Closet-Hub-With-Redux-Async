@@ -1,4 +1,4 @@
-// Add async-related action types - remove original, general action type
+// FOR THUNK: add async-related action types - remove original, general action type
 export const CATEGORIES_ACTION_TYPES = {
     FETCH_CATEGORIES_START: "FETCH_CATEGORIES_START",
     FETCH_CATEGORIES_SUCCESS: "FETCH_CATEGORIES_SUCCESS",

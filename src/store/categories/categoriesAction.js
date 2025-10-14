@@ -1,8 +1,7 @@
 import { createAction } from "../../utils/reducer/reducerUtils.js";
 import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
-// import { getCategoriesAndDocuments } from "../../services/firebase/firebase.js";
 
-// FOR THUNK: Create an action for each of the three async-related types
+// Create an action for each of the three async-related types - start, success, and error
 export function fetchCategoriesStart() {
     // Start does not return a payload - only changes isLoading to true in the reducer
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
@@ -15,18 +14,3 @@ export function fetchCategoriesSuccess(categoryObjectsArray) {
 export function fetchCategoriesFail(error) {
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error);
 }
-
-// FOR THUNK (replacing): Create the thunk - function that returns an async function that dispatches 3 fetch stages
-// export function fetchCategoriesAsync() {
-//     return async (dispatch) => {
-//         dispatch(fetchCategoriesStart());
-
-//         try {
-//             const categoryObjectsArray = await getCategoriesAndDocuments();
-//             dispatch(fetchCategoriesSuccess(categoryObjectsArray));
-//         } catch (error) {
-//             // Pass in clean error string to avoid leading sensitive info in component
-//             dispatch(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
-//         }
-//     }
-// }

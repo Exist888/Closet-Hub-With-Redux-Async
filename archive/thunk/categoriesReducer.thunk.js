@@ -1,6 +1,6 @@
 import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
 
-// Add isLoading and error properties to initial state
+// FOR THUNK: add isLoading and error properties to initial state
 const INITIAL_STATE = {
     categoryObjectsArray: [],
     isLoading: false,
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 // Must set default value of action to empty object to avoid an error
-// Check for all three async-related action types and return relevant state properties
+// FOR THUNK: check for all three async-related action types and return relevant state properties
 export function categoriesReducer(state = INITIAL_STATE, action = {}) {
     const { type, payload } = action;
 

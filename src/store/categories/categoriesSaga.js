@@ -9,22 +9,15 @@ import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
 
 // Commented out code is from previouslu used Thunk which was in action file - for comparison
 export function* fetchCategoriesAsync() {
-    // return async (dispatch) => {
-    //     dispatch(fetchCategoriesStart());
     try {
-        // const categoryObjectsArray = await getCategoriesAndDocuments();
-
         // FOR SAGA: call(fn, arg) is used instead of just calling fn(arg) 
         // so Saga can better manage execution, errors, testing, and cancellation.
         const categoryObjectsArray = yield call(getCategoriesAndDocuments, "categories");
-        // dispatch(fetchCategoriesSuccess(categoryObjectsArray));
         yield put(fetchCategoriesSuccess(categoryObjectsArray));
     } catch (error) {
         // Pass in clean error string to avoid leading sensitive info in component
-        // dispatch(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
         yield put(fetchCategoriesFail("Sorry, items did not load. Please try again later."));
     }
-    // }
 }
 
 export function* onFetchCategories() {
