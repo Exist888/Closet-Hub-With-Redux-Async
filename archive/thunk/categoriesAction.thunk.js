@@ -16,7 +16,7 @@ export function fetchCategoriesFail(error) {
     return createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error);
 }
 
-// FOR THUNK (replacing): Create the thunk - function that returns an async function that dispatches 3 fetch stages
+// FOR THUNK: Create the thunk - function that returns an async function that dispatches 3 fetch stages
 export function fetchCategoriesAsync() {
     return async (dispatch) => {
         dispatch(fetchCategoriesStart());

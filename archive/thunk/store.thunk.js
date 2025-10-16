@@ -5,7 +5,7 @@ import { logger } from "redux-logger";
 import { thunk } from "redux-thunk"; // FOR THUNK: import thunk from library
 import { rootReducer } from "./rootReducer.js";
 
-// FOR THUNK (replacing now): import above and add it to the middleWares array
+// FOR THUNK: import above and add it to the middleWares array
 const middleWares = [
     process.env.NODE_ENV !== "production" && logger,
     thunk

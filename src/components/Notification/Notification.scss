@@ -35,6 +35,7 @@
 .error-msg {
     background-color: #ffe4d9;
     color: #bd3900;
-    position: absolute;
+    box-shadow: 0 10px 20px #631e0033;
+    position: fixed;
     top: 6rem;
 }

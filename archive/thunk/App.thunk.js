@@ -30,7 +30,7 @@ export function App() {
     }, []);
 
     useEffect(() => {
-        // FOR THUNK (replacing): Replace previous async fetch with the thunk - which takes care of the fetch
+        // FOR THUNK: Replace previous async fetch with the thunk - which takes care of the fetch
         dispatch(fetchCategoriesAsync());
     }, []);
 

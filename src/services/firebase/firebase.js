@@ -114,7 +114,10 @@ export async function createUserDocumentFromAuth(userAuth, additionalInfo = {}) 
     }
 
     // Return the reference to the user doc whether it exists or not
-    return userDocRef;
+    // return userDocRef;
+
+    // FOR SAGA: return the snapshot
+    return userSnapshot;
 }
 
 export async function createAuthUserWithEmailAndPassword(email, password) {
@@ -133,4 +136,19 @@ export async function signOutUser() {
 
 export function onAuthStateChangedListener(callback) {
     onAuthStateChanged(auth, callback);
+}
+
+// FOR SAGA: To practice using Saga, we will replace function above with a custom Promise
+// NOTE: Best practice is to use Firebase's onAuthStateChanged function to listen for auth state changes
+export function getCurrentUser() {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth, 
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    })
 }

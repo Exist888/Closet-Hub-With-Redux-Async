@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; // FOR SAGA
 import { FormInput } from "../FormInput/FormInput.jsx";
 import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
-import { signUpStart, googleSignInStart, clearUserError } from "../../store/user/userAction.js";
-import { selectUserError } from "../../store/user/userSelector.js"; // FOR SAGA
+import { 
+    createAuthUserWithEmailAndPassword, 
+    createUserDocumentFromAuth,
+    signInWithGooglePopup 
+} from "../../services/firebase/firebase.js";
 import "./SignUpForm.scss";
 
 const defaultFormFields = {
@@ -18,17 +20,10 @@ const defaultFormFields = {
 export function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
-    // FOR SAGA:
-    const dispatch = useDispatch();
-    const error = useSelector(selectUserError);
 
     function handleChange(event) {
         // Destructure input name and value when input changes
         const { name, value } = event.target;
-
-        // FOR SAGA: refactor after moving Saga to archive
-        dispatch(clearUserError());
-
         // Update state to new value where input changes while keeping remaining fields
         setFormFields({ ...formFields, [name]: value });
     }
@@ -44,28 +39,34 @@ export function SignUpForm() {
             alert("Passwords don't match. Please try again.");
             return;
         }
-        // FOR SAGA: Remove try/catch since async logic happens inside of the Saga
-        dispatch(signUpStart(email, password, displayName));
-        resetFormFields();
+
+        try {
+            const response = await createAuthUserWithEmailAndPassword(email, password);
+            await createUserDocumentFromAuth(response.user, { displayName });
+            resetFormFields();
+        } catch (error) {
+            if (error.code === "auth/email-already-in-use") {
+                alert("Cannot create account. Email already in use.")
+            } else {
+                alert("Error creating account. Please try again or continue with Google instead.")
+            }
+        }
     }
 
     async function signInWithGoogle() {
-        // await signInWithGooglePopup();
-        // FOR SAGA:
-        dispatch(googleSignInStart());
+        await signInWithGooglePopup();
     }
 
     return (
         <section className="sign-up-form-section">
-            {/* FOR SAGA */}
-            {error && (
+            {/* {error && (
                 <Notification notificationClass="errorMsg">
                     {error.code === "auth/email-already-in-use" 
                         ? "Cannot create account. Email already in use."
                         : "Error creating account. Please try again or continue with Google instead."
                     }
                 </Notification>
-            )}
+            )} */}
             <h1>New to Closet Hub?</h1>
             <p>
                 <i aria-hidden="true" className="fa-solid fa-user-plus"></i>

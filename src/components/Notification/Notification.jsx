@@ -9,7 +9,7 @@ export function Notification({ children, notificationClass = "itemAddedMsg", ...
     const mappedClass = NOTIFICATION_CLASSES[notificationClass] || "";
 
     return (
-        <article className={`notification ${mappedClass}`}>
+        <article className={`notification ${mappedClass}`} role="alert">
             <span className="notification-text">{children}</span>
         </article>
     );
