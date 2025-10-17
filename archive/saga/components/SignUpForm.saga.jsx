@@ -4,7 +4,7 @@ import { FormInput } from "../FormInput/FormInput.jsx";
 import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
-import { signUpStart, googleSignInStart, clearUserError } from "../../store/user/userAction.js"; // FOR SAGA:
+import { signUpStart, googleSignInStart, clearUserError } from "../../store/user/userAction.js"; // FOR SAGA
 import { selectUserError } from "../../store/user/userSelector.js"; // FOR SAGA
 import "./SignUpForm.scss";
 

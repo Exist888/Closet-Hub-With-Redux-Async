@@ -19,6 +19,8 @@ export function App() {
         dispatch(checkUserSession());
     }, []);
 
+    // FOR SAGA: Temporarily commenting out authStateChagedListener
+
     useEffect(() => {
         // FOR SAGA: dispatch the first action so Saga can handle remaining actions using generator functions
         // This only dispatches a plain action (FETCH_CATEGORIES_START)
