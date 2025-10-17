@@ -3,7 +3,9 @@ import { FormInput } from "../FormInput/FormInput.jsx";
 import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
-import { signInUserWithEmailAndPassword, signInWithGooglePopup } from "../../services/firebase/firebase.js";
+import { signInUserWithEmailAndPassword, 
+    signInWithGooglePopup 
+} from "../../services/firebase/firebase.js";
 import "./SignInForm.scss";
 
 const defaultFormFields = {
@@ -13,9 +15,11 @@ const defaultFormFields = {
 
 export function SignInForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
+    const [errorMsg, setErrorMsg] = useState(null);
     const { email, password } = formFields;
 
     function handleChange(event) {
+        setErrorMsg(null);
         // Destructure input name and value when input changes
         const { name, value } = event.target;
         // Update state to new value where input changes while keeping remaining fields
@@ -33,9 +37,9 @@ export function SignInForm() {
             resetFormFields();
         } catch(error) {
             if (error.code === "auth/invalid-credential") {
-                alert("Invalid credentials. Please double check your inputs, or create an account.");
+                setErrorMsg("Invalid credentials. Please double check your inputs, or create an account.");
             } else {
-                alert("Credentials not found. Please try again.");
+                setErrorMsg("Credentials not found. Please try again.");
             }
         }
     }
@@ -46,14 +50,9 @@ export function SignInForm() {
 
     return (
         <section className="sign-in-form-section">
-            {/* {error && (
-                <Notification notificationClass="errorMsg">
-                    {error.code === "auth/invalid-credential" 
-                        ? "Invalid credentials. Please double check your inputs."
-                        : "Credentials not found. Please try again."
-                    }
-                </Notification>
-            )} */}
+            {errorMsg && (
+                <Notification notificationClass="errorMsg">{errorMsg}</Notification>
+            )}
             <h1>Already have an account?</h1>
             <p> 
                 <i aria-hidden="true" className="fa-solid fa-lock"></i>
@@ -79,7 +78,7 @@ export function SignInForm() {
                     onChange={handleChange}
                     name="password" 
                     value={password}
-                    minLength={15}
+                    minLength={8}
                     maxLength={35}
                     autoComplete="new-password"
                 />

@@ -19,9 +19,11 @@ const defaultFormFields = {
 
 export function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
+    const [errorMsg, setErrorMsg] = useState(null);
     const { displayName, email, password, confirmPassword } = formFields;
 
     function handleChange(event) {
+        setErrorMsg(null);
         // Destructure input name and value when input changes
         const { name, value } = event.target;
         // Update state to new value where input changes while keeping remaining fields
@@ -36,7 +38,7 @@ export function SignUpForm() {
         event.preventDefault();
         
         if (password !== confirmPassword) {
-            alert("Passwords don't match. Please try again.");
+            setErrorMsg("Passwords don't match. Please try again.");
             return;
         }
 
@@ -46,9 +48,9 @@ export function SignUpForm() {
             resetFormFields();
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {
-                alert("Cannot create account. Email already in use.")
+                setErrorMsg("Cannot create account. Email already in use.");
             } else {
-                alert("Error creating account. Please try again or continue with Google instead.")
+                setErrorMsg("Error creating account. Please try again or continue with Google instead.");
             }
         }
     }
@@ -59,14 +61,9 @@ export function SignUpForm() {
 
     return (
         <section className="sign-up-form-section">
-            {/* {error && (
-                <Notification notificationClass="errorMsg">
-                    {error.code === "auth/email-already-in-use" 
-                        ? "Cannot create account. Email already in use."
-                        : "Error creating account. Please try again or continue with Google instead."
-                    }
-                </Notification>
-            )} */}
+            {errorMsg && (
+                <Notification notificationClass="errorMsg">{errorMsg}</Notification>
+            )}
             <h1>New to Closet Hub?</h1>
             <p>
                 <i aria-hidden="true" className="fa-solid fa-user-plus"></i>
@@ -104,7 +101,7 @@ export function SignUpForm() {
                     onChange={handleChange}
                     name="password" 
                     value={password}
-                    minLength={15}
+                    minLength={8}
                     maxLength={35}
                     autoComplete="new-password"
                 />
