@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
-// FOR SAGA: useDispatch
-import { useSelector, useDispatch } from "react-redux"; // For Redux, replace useContext with useSelector
+import { useSelector } from "react-redux"; // For Redux, replace useContext with useSelector
 import { selectCurrentUser } from "../../store/user/userSelector.js"; // Returns current state from Redux
-import { signOutStart } from "../../store/user/userAction.js"; // FOR SAGA
+import { signOutUser } from "../../services/firebase/firebase.js";
 import { CartIcon } from "../../components/CartIcon/CartIcon.jsx";
 import { CartDropdown } from "../../components/CartDropdown/CartDropdown.jsx";
 import logo from "../../assets/logo.png";
@@ -13,9 +12,6 @@ export function Header() {
     const [isDropdownClicked, setIsDropdownClicked] = useState(false);
     // Set up ref for CartIcon where it will be assigned using forwardRef so it can be sent to a sibling
     const cartIconRef = useRef(null);
-
-    // FOR SAGA:
-    const dispatch = useDispatch();
 
     // Get current user state from Redux store
     const currentUser = useSelector(selectCurrentUser);
@@ -28,9 +24,8 @@ export function Header() {
         setIsDropdownClicked(false);
     }
 
-    function signOutHandler() {
-        // FOR SAGA:
-        dispatch(signOutStart());
+    async function signOutHandler() {
+        await signOutUser();
     }
 
     return (

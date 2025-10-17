@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; // FOR SAGA
 import { FormInput } from "../FormInput/FormInput.jsx";
 import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
-import { emailSignInStart, googleSignInStart, clearUserError } from "../../store/user/userAction.js"; // FOR SAGA
-import { selectUserError } from "../../store/user/userSelector.js"; // FOR SAGA
+import { signInUserWithEmailAndPassword, signInWithGooglePopup } from "../../services/firebase/firebase.js";
 import "./SignInForm.scss";
 
 const defaultFormFields = {
@@ -16,17 +14,10 @@ const defaultFormFields = {
 export function SignInForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
-    // FOR SAGA
-    const dispatch = useDispatch();
-    const error = useSelector(selectUserError);
 
     function handleChange(event) {
         // Destructure input name and value when input changes
         const { name, value } = event.target;
-
-        // FOR SAGA: refactor after moving Saga to archive
-        dispatch(clearUserError());
-
         // Update state to new value where input changes while keeping remaining fields
         setFormFields({ ...formFields, [name]: value });
     }
@@ -37,27 +28,32 @@ export function SignInForm() {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        // FOR SAGA: Remove try/catch since async logic happens inside of the Saga
-        dispatch(emailSignInStart(email, password));
-        resetFormFields();
-}
+        try {
+            await signInUserWithEmailAndPassword(email, password);
+            resetFormFields();
+        } catch(error) {
+            if (error.code === "auth/invalid-credential") {
+                alert("Invalid credentials. Please double check your inputs, or create an account.");
+            } else {
+                alert("Credentials not found. Please try again.");
+            }
+        }
+    }
 
     async function signInWithGoogle() {
-        // FOR SAGA:
-        dispatch(googleSignInStart());
+        await signInWithGooglePopup();
     }
 
     return (
         <section className="sign-in-form-section">
-            {/* FOR SAGA */}
-            {error && (
+            {/* {error && (
                 <Notification notificationClass="errorMsg">
                     {error.code === "auth/invalid-credential" 
                         ? "Invalid credentials. Please double check your inputs."
                         : "Credentials not found. Please try again."
                     }
                 </Notification>
-            )}
+            )} */}
             <h1>Already have an account?</h1>
             <p> 
                 <i aria-hidden="true" className="fa-solid fa-lock"></i>

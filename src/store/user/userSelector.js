@@ -3,8 +3,3 @@
 export function selectCurrentUser(state) {
     return state.user.currentUser;
 }
-
-//FOR SAGA:
-export function selectUserError(state) {
-    return state.user.error
-}
